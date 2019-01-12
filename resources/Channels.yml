@@ -1,0 +1,13 @@
+###  ChatChannels v0.0.1-dev#1 Channels.yml configuration file  ###
+# used as an alternative to the minecraft color code symbol
+# only applies to configuration format strings
+color-symbol: &
+default-format: "{channel} | {name}: {message}"
+channels:
+  - name: general
+    format: false
+    public: true
+  - name: random
+    public: true
+  - name: staff
+    public: false

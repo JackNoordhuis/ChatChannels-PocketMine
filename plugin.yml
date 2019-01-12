@@ -1,0 +1,5 @@
+name: ChatChannels
+author: Jack Noordhuis
+main: jacknoordhuis\chatchannels\ChatChannels
+version: 0.0.1-dev#1
+api: 3.0.0

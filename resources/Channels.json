@@ -1,0 +1,19 @@
+{
+  "default-format": "{channel} | {name}: {message}",
+  "color-symbol": "&",
+  "channels": [
+    {
+      "name": "general",
+      "format": false,
+      "public": true
+    },
+    {
+      "name": "random",
+      "public": true
+    },
+    {
+      "name": "staff",
+      "public": false
+    }
+  ]
+}

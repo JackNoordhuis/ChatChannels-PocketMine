@@ -1,0 +1,5 @@
+###  ChatChannels v0.0.1-dev#1 configuration file  ###
+general:
+  default-channel: general
+  session-driver:
+    provider: yaml
