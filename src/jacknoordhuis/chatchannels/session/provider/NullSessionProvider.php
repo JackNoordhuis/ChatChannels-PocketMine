@@ -19,6 +19,7 @@ declare(strict_types=1);
 namespace jacknoordhuis\chatchannels\session\provider;
 
 use jacknoordhuis\chatchannels\session\holder\Holder;
+use jacknoordhuis\chatchannels\session\TemporarySession;
 
 class NullSessionProvider extends SessionProvider {
 
@@ -26,13 +27,13 @@ class NullSessionProvider extends SessionProvider {
 	 * @inheritDoc
 	 */
 	public function load(Holder $holder, string $sessionName = "") : void {
-		return;
+		$this->getManager()->addSession(new TemporarySession($holder));
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	public function save(Holder $holder, string $data, string $sessionName = "") : void {
+	public function save(Holder $holder, array $data, string $sessionName = "") : void {
 		return;
 	}
 
@@ -42,6 +43,5 @@ class NullSessionProvider extends SessionProvider {
 	public function delete(Holder $holder, string $sessionName = "") : void {
 		return;
 	}
-
 
 }

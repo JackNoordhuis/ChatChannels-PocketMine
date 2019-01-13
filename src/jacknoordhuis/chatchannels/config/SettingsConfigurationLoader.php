@@ -35,12 +35,8 @@ class SettingsConfigurationLoader extends ConfigurationLoader {
 	}
 
 	protected function loadSessionDriver(array $driver) : void  {
-		$manager = $this->getPlugin()->getSessionManager();
-
-		$this->loadSessionProvider(strtolower($driver["provider"]));
-		if(!($manager->getProvider() instanceof NullSessionProvider)) {
-			$this->getPlugin()->getEventManager()->registerHandler(new PlayerSessionHandler());
-		}
+		$this->loadSessionProvider(strtolower($driver["provider"] ?? "null"));
+		$this->getPlugin()->getEventManager()->registerHandler(new PlayerSessionHandler());
 	}
 
 	protected function loadSessionProvider(string $provider) : void {
