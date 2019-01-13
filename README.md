@@ -2,6 +2,9 @@ ChatChannels Plugin
 ===============
 _Allows you to setup multiple chat channels for your PocketMine server!_
 
+[![](https://poggit.pmmp.io/ci.shield/JackNoordhuis/ChatChannels-PocketMine/ChatChannels)](https://poggit.pmmp.io/ci/JackNoordhuis/ChatChannels-PocketMine/ChatChannels)
+[![CircleCI](https://circleci.com/gh/JackNoordhuis/ChatChannels-PocketMine.svg?style=svg)](https://circleci.com/gh/JackNoordhuis/ChatChannels-PocketMine)
+
 ### About
 
 ChatChannels is a [PocketMine-MP](https://github.com/pmmp/PocketMine-MP) plugin that provides easy-to-configure
