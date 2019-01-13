@@ -48,12 +48,15 @@ class SettingsConfigurationLoader extends ConfigurationLoader {
 		switch($provider) {
 			case "yaml":
 				$manager->setProvider(new YamlSessionProvider($manager));
+				$this->getPlugin()->getLogger()->debug("Using yaml session data provider.");
 				break;
 			case "json":
 				$manager->setProvider(new JsonSessionProvider($manager));
+				$this->getPlugin()->getLogger()->debug("Using json session data provider.");
 				break;
 			case "null":
 				$manager->setProvider(new NullSessionProvider($manager));
+				$this->getPlugin()->getLogger()->debug("Using null session data provider.");
 				break;
 			default:
 				throw new ConfigurationException("Unknown provider specified for session driver: " . $provider);
