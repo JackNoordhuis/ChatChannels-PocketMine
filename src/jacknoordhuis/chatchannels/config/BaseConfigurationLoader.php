@@ -24,16 +24,16 @@ use pocketmine\utils\Config;
 /**
  * Basic class to help manage configuration values
  */
-abstract class ConfigurationLoader {
+abstract class BaseConfigurationLoader extends AbstractConfigurationLoader {
 
 	/** @var \jacknoordhuis\chatchannels\ChatChannels */
-	private $plugin;
+	protected $plugin;
 
 	/** @var string */
-	private $path;
+	protected $path;
 
 	/** @var array */
-	private $data;
+	protected $data;
 
 	public function __construct(ChatChannels $plugin, string $path) {
 		$this->plugin = $plugin;

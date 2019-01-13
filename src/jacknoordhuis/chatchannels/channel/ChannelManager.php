@@ -18,12 +18,16 @@ declare(strict_types=1);
 
 namespace jacknoordhuis\chatchannels\channel;
 
+use jacknoordhuis\chatchannels\channel\provider\ChannelProvider;
 use jacknoordhuis\chatchannels\ChatChannels;
 
 class ChannelManager {
 
 	/** @var \jacknoordhuis\chatchannels\ChatChannels */
 	private $plugin;
+
+	/** @var \jacknoordhuis\chatchannels\channel\provider\ChannelProvider */
+	protected $provider;
 
 	/** @var \jacknoordhuis\chatchannels\channel\Channel[] */
 	protected $channels = [];
@@ -40,6 +44,21 @@ class ChannelManager {
 	 */
 	public function getPlugin() : ChatChannels {
 		return $this->plugin;
+	}
+
+	/**
+	 * @return \jacknoordhuis\chatchannels\channel\provider\ChannelProvider
+	 */
+	public function getProvider() : ChannelProvider {
+		return $this->provider;
+	}
+
+	/**
+	 * @param \jacknoordhuis\chatchannels\channel\provider\ChannelProvider $provider
+	 */
+	public function setProvider(ChannelProvider $provider) : void {
+		$provider->setManager($this);
+		$this->provider = $provider;
 	}
 
 	/**

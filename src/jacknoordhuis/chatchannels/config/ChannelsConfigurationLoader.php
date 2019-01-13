@@ -23,13 +23,27 @@ use jacknoordhuis\chatchannels\channel\ChannelManager;
 use jacknoordhuis\chatchannels\config\exception\ConfigurationException;
 use pocketmine\utils\TextFormat;
 
-class ChannelsConfigurationLoader extends ConfigurationLoader {
+class ChannelsConfigurationLoader extends AbstractConfigurationLoader {
+
+	/** @var \jacknoordhuis\chatchannels\channel\ChannelManager */
+	private $manager;
+
+	/** @var array */
+	private $data;
 
 	/** @var string */
 	protected $colorSymbol = null;
 
 	/** @var string */
 	protected $defaultFormat = null;
+
+	/** @noinspection PhpMissingParentConstructorInspection */
+	public function __construct(ChannelManager $manager, array $data) {
+		$this->manager = $manager;
+		$this->data = $data;
+
+		$this->onLoad($data);
+	}
 
 	public function onLoad(array $data) : void {
 		$this->colorSymbol = $data["color-symbol"] ?? null;
@@ -44,16 +58,15 @@ class ChannelsConfigurationLoader extends ConfigurationLoader {
 	}
 
 	protected function loadChannels(array $channels) : void {
-		$manager = $this->getPlugin()->getChannelManager();
 
 		foreach($channels as $index => $data) {
 			try {
-				$manager->addChannel($this->loadChannel($manager, $data));
+				$this->manager->addChannel($this->loadChannel($this->manager, $data));
 			} catch(ConfigurationException $e) {
-				$this->getPlugin()->getLogger()->notice($e->getMessage() . " " . (isset($data["name"]) ? "Channel: " . $data["name"] : "Channel Index: " . $index));
+				$this->manager->getPlugin()->getLogger()->notice($e->getMessage() . " " . (isset($data["name"]) ? "Channel: " . $data["name"] : "Channel Index: " . $index));
 			} catch(\ArrayOutOfBoundsException $e) {
-				$this->getPlugin()->getLogger()->notice("Missing required index for " . (isset($data["name"]) ? "Channel: " . $data["name"] : "Channel Index: " . $index));
-				$this->getPlugin()->getLogger()->logException($e);
+				$this->manager->getPlugin()->getLogger()->notice("Missing required index for " . (isset($data["name"]) ? "Channel: " . $data["name"] : "Channel Index: " . $index));
+				$this->manager->getPlugin()->getLogger()->logException($e);
 			}
 		}
 	}
@@ -72,6 +85,7 @@ class ChannelsConfigurationLoader extends ConfigurationLoader {
 				$format = $this->defaultFormat;
 			} elseif($format === false) {
 				$noFormat = true;
+				$format = "";
 			} else {
 				$format = TextFormat::colorize($format, $this->colorSymbol);
 			}

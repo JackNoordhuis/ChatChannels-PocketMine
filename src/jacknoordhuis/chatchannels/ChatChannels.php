@@ -19,7 +19,7 @@ declare(strict_types=1);
 namespace jacknoordhuis\chatchannels;
 
 use jacknoordhuis\chatchannels\channel\ChannelManager;
-use jacknoordhuis\chatchannels\config\SettingsConfigurationLoader;
+use jacknoordhuis\chatchannels\config\SettingsBaseConfigurationLoader;
 use jacknoordhuis\chatchannels\event\EventManager;
 use jacknoordhuis\chatchannels\event\handle\PlayerUuidMapHandler;
 use jacknoordhuis\chatchannels\session\SessionManager;
@@ -40,7 +40,7 @@ class ChatChannels extends PluginBase {
 	/** @var \jacknoordhuis\chatchannels\channel\ChannelManager */
 	protected $channelManager;
 
-	/** @var \jacknoordhuis\chatchannels\config\SettingsConfigurationLoader */
+	/** @var \jacknoordhuis\chatchannels\config\SettingsBaseConfigurationLoader */
 	private $settingsConfigurationLoader;
 
 	const SETTINGS_CONFIG = "Settings.yml";
@@ -54,7 +54,7 @@ class ChatChannels extends PluginBase {
 		$this->sessionManager = new SessionManager($this);
 		$this->channelManager = new ChannelManager($this);
 
-		$this->settingsConfigurationLoader = new SettingsConfigurationLoader($this, $this->getDataFolder() . self::SETTINGS_CONFIG);
+		$this->settingsConfigurationLoader = new SettingsBaseConfigurationLoader($this, $this->getDataFolder() . self::SETTINGS_CONFIG);
 	}
 
 	public function onDisable() {

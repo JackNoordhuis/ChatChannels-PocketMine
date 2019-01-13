@@ -18,20 +18,46 @@ declare(strict_types=1);
 
 namespace jacknoordhuis\chatchannels\config;
 
+use jacknoordhuis\chatchannels\channel\provider\JsonChannelProvider;
+use jacknoordhuis\chatchannels\channel\provider\YamlChannelProvider;
 use jacknoordhuis\chatchannels\config\exception\ConfigurationException;
 use jacknoordhuis\chatchannels\event\handle\PlayerSessionHandler;
 use jacknoordhuis\chatchannels\session\provider\JsonSessionProvider;
 use jacknoordhuis\chatchannels\session\provider\NullSessionProvider;
 use jacknoordhuis\chatchannels\session\provider\YamlSessionProvider;
+use function strtolower;
 
-class SettingsConfigurationLoader extends ConfigurationLoader {
+class SettingsBaseConfigurationLoader extends BaseConfigurationLoader {
 
 	protected function onLoad(array $data) : void {
 		$general = $data["general"];
 
 		$this->getPlugin()->getChannelManager()->setDefaultChannel(strtolower($general["default-channel"] ?? ""));
 
+		$this->loadChannelDriver($general["channel-driver"]);
 		$this->loadSessionDriver($general["session-driver"]);
+	}
+
+	protected function loadChannelDriver(array $driver) : void {
+		$this->loadChannelProvider(strtolower($driver["provider"] ?? "null"));
+	}
+
+	protected function loadChannelProvider(string $provider) : void {
+		$manager = $this->getPlugin()->getChannelManager();
+		switch($provider) {
+			case "yaml":
+				$manager->setProvider(new YamlChannelProvider);
+				$this->getPlugin()->getLogger()->debug("Using yaml channel data provider.");
+				break;
+			case "json":
+				$manager->setProvider(new JsonChannelProvider);
+				$this->getPlugin()->getLogger()->debug("Using json channel data provider.");
+				break;
+			default:
+				throw new ConfigurationException("Unknown provider specified for channel driver: " . $provider);
+		}
+
+		$manager->getProvider()->load();
 	}
 
 	protected function loadSessionDriver(array $driver) : void  {
