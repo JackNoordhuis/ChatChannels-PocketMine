@@ -50,7 +50,7 @@ You can now make your local modifications, commit and push to github! If you wis
 push your changes to a fork, simply run this command:
 
 ```bash
-git remote set-url origin git@github.com:YOUR_USERNAME/DiscordRelay-PocketMine.git
+git remote set-url origin git@github.com:YOUR_USERNAME/ChatChannels-PocketMine.git
 ```
 
 <!--- If you're modifying the wiki, don't forget to `cd` into the wiki folder and `git init` before committing your changes
