@@ -9,4 +9,4 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: nxtlvlsoftware/pmmp-phpstan-action@3.9.4
+    - uses: nxtlvlsoftware/pmmp-phpstan-action@3
